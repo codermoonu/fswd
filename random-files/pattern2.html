@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table Layout</title>
+</head>
+<body>
+    <table border="1" width="100%" height="500px" cellspacing="0" cellpadding="10">
+        <tr>
+            <td colspan="2">A</td>
+            <td rowspan="2">C</td>
+            <td rowspan="2">
+                <table border="1" width="100%" height="100%" cellspacing="0">
+                    <tr>
+                        <td>K</td>
+                    </tr>
+                    <tr>
+                        <td>L</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2">B</td>
+            <td>D</td>
+        </tr>
+        <tr>
+            <td>E</td>
+            <td rowspan="2">G</td>
+            <td rowspan="2">J</td>
+        </tr>
+        <tr>
+            <td>F</td>
+            <td>H</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">CV</td>
+        </tr>
+    </table>
+</body>
+</html>
