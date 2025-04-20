@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signifya Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            backdrop-filter: blur(12px);
+            background-color: rgba(0, 0, 0, 0.2); /* light transparency */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000; /* Keep it on top of video */
+        }
+        .navbar-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1.5px;
+            color: rgba(164, 234, 243, 0.68) !important; /* Optional: make it golden to pop */
+        }
+        #bgVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;              /* Full viewport width */
+            height: 100vh;             /* Full viewport height */
+            object-fit: cover;         /* Maintain aspect ratio and fill */
+            z-index: -1;               /* Behind content */
+            pointer-events: none;      /* Prevent blocking clicks */
+        }
+
+        .container {
+            display: flex;
+            grid-template-columns: 1fr 1fr; /* two equal columns */
+            gap: 20px;
+            align-items: center;
+            height: 100vh;
+            padding-left: 60px; /* distance from the left edge */
+            padding-right: 60px;
+            box-sizing: border-box;
+        }
+        @media (max-width: 768px) {
+            .day-box {
+                max-width: 100% !important;
+            }
+        }
+
+        .login-box {
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        video {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05); /* subtle transparency */
+            border: 2px solid rgba(255, 255, 255, 0.25); /* frosty visible border */
+            backdrop-filter: blur(1px); /* soft glass effect */
+            -webkit-backdrop-filter: blur(15px); /* for Safari */
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            color: white;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1); /* glowing soft shadow */
+        }
+        .login-box:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.2);
+        }
+        .form-select {
+            background-color: rgba(255, 255, 255, 0.05) !important; /* transparent */
+            color: white; /* Only for the selected text */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(6px); /* glassy effect */
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 8px;
+            padding: 10px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            box-shadow: none !important;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+        .form-select option {
+            color: black;
+            background-color: white; /* fallback readable style */
+        }
+
+        input.form-control {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+        }
+        input.form-control::placeholder {
+            color: #ddd;
+        }
+        .btn-custom {
+            background-color: #f9b233;
+            border: none;
+            color: #000;
+            font-weight: bold;
+        }
+        a { color: #fff; }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent px-4 py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-white" href="#">Signifya Events Registration!</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="#home">Home</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="#events">Events</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="#register">Register</a>
+                </li>
+                <li class="nav-item mx-2">
+                    <a class="nav-link text-white" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Home Section -->
+<section id="home" class="container my-5">
+    <div class="row align-items-center">
+        <!-- Video Column -->
+        <div class="col-md-6">
+            <video controls class="w-100 rounded shadow-sm" poster="/images/placeholder.jpg">
+                <source src="https://www.signifiya.tech/discover.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Text Column -->
+        <div class="col-md-6 text-white">
+            <h1 class="display-5 fw-bold">Discover Signifya 2025</h1>
+            <p class="mt-4">
+                Signifya 2025 is the annual inter-university tech fest organized by the School of Engineering and Technology (SOET), Adamas University. Designed to foster innovation and collaboration, the event brings together technology enthusiasts from various institutions to compete, explore, and showcase their skills.
+                <br><br>
+                With a diverse range of competitions—including robotics, coding, gaming, and fun knowledge-based events—Signifya 2025 aims to create an engaging platform for learning, networking, and pushing the boundaries of technology.
+                <br><br>
+                Join us, and be part of a celebration where creativity meets excellence!
+            </p>
+        </div>
+    </div>
+</section>
+<!-- Events Section -->
+<section id="events" class="py-7"
+         style="background-image: linear-gradient(45deg, #0e0e0e 25%, #1a1a1a 25%, #1a1a1a 50%, #0e0e0e 50%, #0e0e0e 75%, #1a1a1a 75%, #1a1a1a);
+background-attachment: fixed;
+background-size: 50px 50px;
+background-repeat: repeat;
+"><br><br><br>
+    <h2 class="text-center mb-5 display-5 fw-bold" style="color: #fff;">Signifya 2025<br><small class="fw-normal " style="font-size: 0.6em;">Event Schedule</small></h2>
+    <div class="container text-white">
+
+        <br>
+
+        <div class="row justify-content-center g-4">
+        <!-- Day 1 Schedule -->
+            <div class="col-md-6">
+                <h4 class="text-center mb-3">Day 1</h4>
+                <div class="table-responsive bg-dark rounded-4 p-3 shadow-sm">
+                    <table class="table table-dark table-hover mb-0 rounded-3">
+                        <thead>
+                        <tr>
+                            <th>Event Names</th>
+                            <th>Venue</th>
+                            <th>Timing</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>Bridge Building</td><td>5008</td><td>01:00 PM - 04:00 PM</td></tr>
+                        <tr><td>Tower Making</td><td>6002</td><td>03:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Coding Premier League</td><td>2103 & 2104</td><td>01:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Circuitronix (Electrifying Circuits)</td><td>5204</td><td>01:00 PM - 08:00 PM</td></tr>
+                        <tr><td>Robo Terrain</td><td>3103</td><td>01:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Re-Fab</td><td>4001</td><td>01:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Tug Of War</td><td>CCD Ground</td><td>03:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Valorant</td><td>Convention Hall</td><td>10:00 AM - 07:00 PM</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Day 2 Schedule -->
+            <div class="col-md-6">
+                <h4 class="text-center mb-3">Day 2</h4>
+                <div class="table-responsive bg-dark rounded-4 p-3 shadow-sm">
+                    <table class="table table-dark table-hover mb-0 rounded-3">
+                        <thead>
+                        <tr>
+                            <th>Event Names</th>
+                            <th>Venue</th>
+                            <th>Timing</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr><td>Coding Premier League</td><td>2103 & 2104</td><td>10:00 AM - 04:00 PM</td></tr>
+                        <tr><td>Circuitronix (Electrifying Circuits)</td><td>5204</td><td>10:00 AM - 04:00 PM</td></tr>
+                        <tr><td>Path Follower</td><td>3102</td><td>10:00 AM - 03:00 PM</td></tr>
+                        <tr><td>Lathe War</td><td>Central Workshop</td><td>01:00 PM - 06:00 PM</td></tr>
+                        <tr><td>Treasure Hunt</td><td>Entire College</td><td>01:00 PM - 04:00 PM</td></tr>
+                        <tr><td>BGMI</td><td>Convention Hall</td><td>10:00 AM - 03:00 PM</td></tr>
+                        <tr><td>Science Olympiad</td><td>CSE Lab 4001</td><td>11:00 AM - 03:00 PM</td></tr>
+                        <tr><td>PES</td><td>CSE Lab 3 & 4</td><td>10:00 AM - 12:00 PM</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+<br>
+        <div>
+            <p class="text-center mt-3" style="font-size: 0.9em;">
+                Schedule may be subject to minor changes. Please check the event updates regularly.
+            </p>
+        </div>
+    </div>
+</section>
+
+<video autoplay muted loop id="bgVideo">
+    <source src="https://www.signifiya.tech/herovid3.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+
+<br><br><br><br><br><br><br><br>
+<div class="container" id="register">
+    <div class="login-box">
+        <h2 class="text-center mb-4">Register</h2>
+        <form method="POST" action="/register">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Event You Are Interested In</label>
+                <select class="form-select" name="event">
+                    <option selected>Choose an Event</option>
+                    <option value="1">ROBOTICS</option>
+                    <option value="2">GAMING</option>
+                    <option value="3">TECH</option>
+                    <option value="4">MECHANICAL</option>
+                    <option value="5">CIVIL</option>
+                    <option value="6">NON-TECH</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Registration Number</label>
+                <input type="text" class="form-control" name="regno" placeholder="Enter your registration number">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-custom w-100">SIGNUP</button>
+            </div>
+        </form>
+        <div class="text-center mt-3">
+            <a href="#">Forgot Password?</a> | <a href="#">Create your account</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
